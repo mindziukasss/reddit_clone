@@ -1,1 +1,15 @@
-This home page
+<h1>The homepage</h1>
+
+<a href="{% url 'posts:create' %}">New Post </a>
+
+<br />
+<br />
+
+{% for post in posts.all %}
+
+<a>UP </a>{{ post.votes_total }} DOWN - <a href="{{ post.title }}"> {{ post.title }} </a>
+<br />
+{{ post.pub_date }} by {{ post.author.username }}
+<br />
+
+{% endfor %}
