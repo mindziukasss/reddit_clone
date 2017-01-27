@@ -9,7 +9,10 @@ def create(request):
 			if request.POST['title'] and request.POST['url']:
 					post = Post()
 					post.title = request.POST['title']
-					post.url = request.POST['url']
+					if request.POST['url'].startswith('http://') or request.POST['url'].startswith('https://'):
+							post.url = request.POST['url']
+					else:
+							post.url = 'http://' + request.POST['url']
 					post.pub_date = timezone.datetime.now()
 					post.author = request.user
 					post.save()
@@ -24,3 +27,16 @@ def create(request):
 def home(request):
 			posts = Post.objects.order_by('votes_total')
 			return render(request, 'posts/home.html', {'posts':posts})
+def upvote(request, pk):
+	if request.method == 'POST':
+			post = Post.objects.get(pk=pk)
+			post.votes_total += 1
+			post.save()
+			return redirect('home')
+
+def downvote(request, pk):
+	if request.method == 'POST':
+			post = Post.objects.get(pk=pk)
+			post.votes_total -= 1
+			post.save()
+			return redirect('home')

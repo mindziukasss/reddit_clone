@@ -7,9 +7,19 @@
 
 {% for post in posts.all %}
 
-<a>UP </a>{{ post.votes_total }} DOWN - <a href="{{ post.title }}"> {{ post.title }} </a>
+<form method="POST" action="{% url 'posts:upvote' post.id %}">
+	{% csrf_token %}
+<input type="submit" value="Up">
+</form> {{ post.votes_total }} 
+<a href="{{ post.url }}"> {{ post.title }} </a>
 <br />
 {{ post.pub_date }} by {{ post.author.username }}
+
+<form method="POST" action="{% url 'posts:downvote' post.id %}">
+	{% csrf_token %}
+<input type="submit" value="Down">
+</form> 
+
 <br />
 
 {% endfor %}
