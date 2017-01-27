@@ -19,3 +19,17 @@ def signup(request):
 
 	else:
 		return render(request, 'accounts/signup.html')
+
+def loginview(request):
+	if request.method == 'POST':
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				login(request, user)
+				return render (request, 'accounts/login.html', {'error':'Login successful!'})
+			else:
+					return render (request, 'accounts/login.html', {'error':'Password didn\'t math'})
+
+	else:
+		return render(request, 'accounts/login.html')
