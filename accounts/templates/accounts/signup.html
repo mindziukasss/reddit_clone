@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h1>Sign Up!</h1>
 
 {% if error %}
@@ -5,7 +9,7 @@
 <br />
 {% endif %}
 
-<form method="POST" action="{% url 'signup' %}">
+<form method="POST" action="{% url 'accounts:signup' %}">
 	{% csrf_token %}
 	Username:
 	<br />
@@ -22,3 +26,6 @@
 	<input type="submit" value="Sign Up!">
 	<br />
 </form>
+
+
+{% endblock %}

@@ -19,9 +19,7 @@ def create(request):
 					return redirect('home')
 			else:
 					return render(request, 'posts/create.html',{'error':'ERROR: You must include a title and url to create Post'})
-
 	else:
-
 			return render(request, 'posts/create.html')
 
 def home(request):
